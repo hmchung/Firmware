@@ -56,7 +56,7 @@ IEKF::IEKF() :
 	_subGps(_nh.subscribe("vehicle_gps_position", 0, &IEKF::correctGps, this, 100)),
 	_subAirspeed(_nh.subscribe("airspeed", 0, &IEKF::correctAirspeed, this, 100)),
 	_subFlow(_nh.subscribe("optical_flow", 0, &IEKF::correctFlow, this, 100)),
-	_subDistance(_nh.subscribe("distance_sensor", 0, &IEKF::callbackDistance, this, 100)),
+	_subDistance(_nh.subscribe("distance_sensor", 0, &IEKF::correctDistance, this, 100)),
 	_subVision(_nh.subscribe("vision_position_estimate", 0, &IEKF::correctVision, this, 100)),
 	_subMocap(_nh.subscribe("att_pos_mocap", 0, &IEKF::correctMocap, this, 100)),
 	_subLand(_nh.subscribe("vehicle_land_detected", 0, &IEKF::callbackLand, this, 100)),
@@ -395,10 +395,10 @@ void IEKF::callbackDistance(const distance_sensor_s *msg)
 
 	// call correct correction function based on type
 	if (msg->type == distance_sensor_s::MAV_DISTANCE_SENSOR_ULTRASOUND) {
-		correctSonar(msg);
+		correctDistBottom(msg, _sensorSonar);
 
 	} else if (msg->type == distance_sensor_s::MAV_DISTANCE_SENSOR_LASER) {
-		correctLidar(msg);
+		correctDistBottom(msg, _sensorLidar);
 	}
 }
 

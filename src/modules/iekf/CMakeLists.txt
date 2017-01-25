@@ -34,7 +34,13 @@ px4_add_module(
 	MODULE modules__iekf
 	MAIN iekf
 	COMPILE_FLAGS
-		-Wall -Wextra -Weffc++
+		-Wall -Wextra -Wcast-align -Wcast-qual
+		-Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2
+		-Winit-self -Wlogical-op -Wmissing-declarations
+		-Wmissing-include-dirs -Wnoexcept -Wold-style-cast
+		-Woverloaded-virtual -Wredundant-decls -Wshadow
+		-Wsign-conversion -Wsign-promo -Wstrict-null-sentinel
+		-Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
 	STACK_MAIN 1000
 	STACK_MAX 10000
 	SRCS
@@ -43,10 +49,9 @@ px4_add_module(
 		corrections/baro.cpp
 		corrections/flow.cpp
 		corrections/gps.cpp
-		corrections/lidar.cpp
+		corrections/distance.cpp
 		corrections/mag.cpp
 		corrections/mocap.cpp
-		corrections/sonar.cpp
 		corrections/vision.cpp
 		corrections/land.cpp
 		IEKF.cpp
