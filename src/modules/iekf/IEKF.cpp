@@ -368,40 +368,6 @@ void IEKF::initializeAttitude(const sensor_combined_s *msg)
 		 double(rad2degf * euler(2)));
 }
 
-void IEKF::callbackDistance(const distance_sensor_s *msg)
-{
-	// require attitude to be initialized
-	if (!_attitudeInitialized) {
-		return;
-	}
-
-	// if not pointing down (roll 180 by convention), do not use
-	if (msg->orientation != 8) {
-		ROS_INFO("distance sensor wrong orientation %d", msg->orientation);
-		return;
-	}
-
-	// if above max distance/ <= 0, out of range
-	if (msg->current_distance > msg->max_distance ||
-	    msg->current_distance < msg->min_distance) {
-		return;
-	}
-
-	// if below 0, don't correct and warn
-	if (msg->current_distance < 0) {
-		ROS_WARN("distance below 0");
-		return;
-	}
-
-	// call correct correction function based on type
-	if (msg->type == distance_sensor_s::MAV_DISTANCE_SENSOR_ULTRASOUND) {
-		correctDistBottom(msg, _sensorSonar);
-
-	} else if (msg->type == distance_sensor_s::MAV_DISTANCE_SENSOR_LASER) {
-		correctDistBottom(msg, _sensorLidar);
-	}
-}
-
 void IEKF::predictState(const sensor_combined_s *msg)
 {
 	// calculate dt

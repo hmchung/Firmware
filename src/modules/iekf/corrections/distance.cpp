@@ -41,13 +41,13 @@ void IEKF::correctDistance(const distance_sensor_s *msg)
 	}
 
 	// get correct sensor
-	Sensosr *sensor = NULL;
+	Sensor *sensor = NULL;
 
 	if (msg->type == distance_sensor_s::MAV_DISTANCE_SENSOR_ULTRASOUND) {
-		sensor = _sensorSonar;
+		sensor = &_sensorSonar;
 
 	} else if (msg->type == distance_sensor_s::MAV_DISTANCE_SENSOR_LASER) {
-		sensor = _sensorLidar;
+		sensor = &_sensorLidar;
 
 	} else {
 		return;
@@ -56,7 +56,7 @@ void IEKF::correctDistance(const distance_sensor_s *msg)
 	// return if no new data
 	float dt = 0;
 
-	if (!sensor.ready(msg->timestamp, dt)) {
+	if (!sensor->ready(msg->timestamp, dt)) {
 		return;
 	}
 
