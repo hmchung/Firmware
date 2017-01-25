@@ -54,6 +54,8 @@ void init(int argc, char **argv, const char *node_name)
 {
 	(void)argc; // unused
 	(void)argv; // unused
+	(void)node_name; // unused
+
 	ROS_INFO("ros initialized");
 
 	if (_node == NULL) {
