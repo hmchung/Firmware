@@ -28,7 +28,7 @@ px4_add_board(
 		#differential_pressure # all available differential pressure drivers
 		differential_pressure/ms4525
 		#distance_sensor # all available distance sensor drivers
-		distance_sensor/ll40ls
+		# distance_sensor/ll40ls
 		#distance_sensor/sf0x
 		gps
 		#heater
@@ -65,7 +65,7 @@ px4_add_board(
 
 	MODULES
 		#attitude_estimator_q
-		camera_feedback
+		# camera_feedback
 		commander
 		dataman
 		ekf2
@@ -84,7 +84,7 @@ px4_add_board(
 		mc_pos_control
 		navigator
 		sensors
-		vmount
+		# vmount
 		vtol_att_control
 		#wind_estimator
 
@@ -124,4 +124,7 @@ px4_add_board(
 		#rover_steering_control # Rover example app
 		#segway
 		#uuv_example_app
+	
+	TESTING
+		# key_command
 	)

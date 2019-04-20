@@ -149,6 +149,7 @@ function(px4_add_board)
 			EXAMPLES
 			SERIAL_PORTS
 			DF_DRIVERS
+			TESTS
 		OPTIONS
 			CONSTRAINED_FLASH
 			TESTING
@@ -255,6 +256,12 @@ function(px4_add_board)
 		endforeach()
 	endif()
 
+	if(TESTS)
+		foreach(test ${TESTS})
+			list(APPEND config_module_list tests/${test})
+		endforeach()
+	endif()
+
 	# DriverFramework drivers
 	if(DF_DRIVERS)
 		set(config_df_driver_list)
@@ -272,6 +279,7 @@ function(px4_add_board)
 	file(RELATIVE_PATH board_support_src_rel ${PX4_SOURCE_DIR}/src ${PX4_BOARD_DIR})
 	list(APPEND config_module_list ${board_support_src_rel}/src)
 
-	set(config_module_list ${config_module_list} PARENT_SCOPE)
+	set(config_module_list ${config_module_list} PARENT_SCOPE
+	)
 
 endfunction()
